@@ -4,7 +4,9 @@ import DishDetail from './Dishdetail';
 import {DISHES} from '../shared/dishes'
 import { Card, CardImg, CardText, CardBody,
   CardTitle } from 'reactstrap';
-import { Navbar, NavbarBrand } from 'reactstrap';
+  import Header from './Header'
+  import Footer from './Footer'
+
 
 
 class Main extends Component {
@@ -43,14 +45,11 @@ class Main extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar dark color="dark" margin="ml auto" justify="space-evenly">
-          <div className="container">
-            <NavbarBrand href="/">Bon Soir Eliot!! </NavbarBrand>
-            </div>
-        </Navbar>
+        <Header />
         <Menu dishes={this.state.dishes}
         onClick={(dishId) => this.onDishSelect(dishId) }/>
         <DishDetail dish={this.state.dishes.filter(dish=>dish.id===this.state.selectedDish)[0]}/>
+        <Footer/>
       </div>
     );
   }
