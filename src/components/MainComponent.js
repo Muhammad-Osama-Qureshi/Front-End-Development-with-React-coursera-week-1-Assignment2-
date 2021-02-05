@@ -4,9 +4,10 @@ import DishDetail from './Dishdetail';
 import {DISHES} from '../shared/dishes'
 import { Card, CardImg, CardText, CardBody,
   CardTitle } from 'reactstrap';
-  import Header from './Header'
-  import Footer from './Footer'
-
+import Header from './Header'
+import Footer from './Footer'
+import Home from './Home'
+import {Switch, Route ,Redirect} from 'react-router-dom'
 
 
 class Main extends Component {
@@ -14,41 +15,31 @@ class Main extends Component {
     super(props);
     this.state={
       dishes:DISHES,
-      selectedDish:null
+  
     }
   }
 
   
-  onDishSelect(dishId) {
-    this.setState({ selectedDish: dishId});
-  }
-  
+ 
  
   
-  renderDish(dish) {
-    if (dish != null)
-        return(
-            <Card>
-                <CardImg top src={dish.image} alt={dish.name} />
-                <CardBody>
-                  <CardTitle>{dish.name}</CardTitle>
-                  <CardText>{dish.description}</CardText>
-                </CardBody>
-            </Card>
-        );
-    else
-        return(
-            <div></div>
-        );
-}
+ 
 
   render() {
+    const Homepage =()=>{
+      return(<>
+      <Home/>
+      </>)
+    }
     return (
       <div className="App">
         <Header />
-        <Menu dishes={this.state.dishes}
-        onClick={(dishId) => this.onDishSelect(dishId) }/>
-        <DishDetail dish={this.state.dishes.filter(dish=>dish.id===this.state.selectedDish)[0]}/>
+      <Switch>
+        <Route path="/home" component={Homepage} />
+        <Route exact path="/menu" component={()=><Menu dishes={this.state.dishes}  />} />
+        <Redirect to="/home" />
+      </Switch>
+
         <Footer/>
       </div>
     );
